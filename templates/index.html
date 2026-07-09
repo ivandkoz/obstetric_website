@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Опрос</title>
+</head>
+<body>
+    <h1>Заполните форму</h1>
+
+    <form method="post" action="/submit">
+        <p>Пациент взят на учет после 12 недель?</p>
+        <label>
+            <input type="radio" name="weeks" value="1" required>
+            Да
+        </label>
+        <label>
+            <input type="radio" name="weeks" value="0">
+            Нет
+        </label>
+
+        <p>Одни или более ПР в анамнезе?</p>
+        <label>
+            <input type="radio" name="premature_birth" value="1" required>
+            Да
+        </label>
+        <label>
+            <input type="radio" name="premature_birth" value="0">
+            Нет
+        </label>
+
+
+        <p>Пациент курит?</p>
+        <label>
+            <input type="radio" name="smokes" value="1" required>
+            Да
+        </label>
+        <label>
+            <input type="radio" name="smokes" value="0">
+            Нет
+        </label>
+
+        <p>Адинамия?</p>
+        <label>
+            <input type="radio" name="adynamia" value="1" required>
+            Да
+        </label>
+        <label>
+            <input type="radio" name="adynamia" value="0">
+            Нет
+        </label>
+
+        <p>Шейка матки при поступлении сглажена?</p>
+        <label>
+            <input type="radio" name="smoothness" value="1" required>
+            Да
+        </label>
+        <label>
+            <input type="radio" name="smoothness" value="0">
+            Нет
+        </label>
+
+        <p>Уровень лейкоцитов в общем анализе крови при поступлении в стационар на родоразрешенение?</p>
+        <label>
+            <input type="radio" name="wb_level" value="0" required>
+            Норма
+        </label>
+        <label>
+            <input type="radio" name="wb_level" value="1">
+            Нет
+        </label>
+
+        <p>Норма ИМТ при постановке на учет?</p>
+        <label>
+            <input type="radio" name="bmi" value="0" required>
+            ИМТ менее 30
+        </label>
+        <label>
+            <input type="radio" name="bmi" value="1">
+            ИМТ более 30
+        </label>
+
+
+        <p>ИППП во время беременности?</p>
+        <label>
+            <input type="radio" name="sti" value="1" required>
+            Да
+        </label>
+        <label>
+            <input type="radio" name="sti" value="0">
+            Нет
+        </label>
+
+        <p>Эпизод кровянистых выделений во время настоящей беременности?</p>
+        <label>
+            <input type="radio" name="spotting" value="1" required>
+            Да
+        </label>
+        <label>
+            <input type="radio" name="spotting" value="0">
+            Нет
+        </label>
+
+
+        <br><br>
+
+        <button type="submit">Получить результат</button>
+    </form>
+</body>
+</html>
