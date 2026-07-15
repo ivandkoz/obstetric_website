@@ -2,108 +2,361 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Опрос</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Оценка риска</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+        defer
+    ></script>
 </head>
+
 <body>
-    <h1>Заполните форму</h1>
+    <main class="page">
+        <section class="survey-card">
 
-    <form method="post" action="/submit">
-        <p>Пациент взят на учет после 12 недель?</p>
-        <label>
-            <input type="radio" name="weeks" value="1" required>
-            Да
-        </label>
-        <label>
-            <input type="radio" name="weeks" value="0">
-            Нет
-        </label>
+            <header class="survey-header">
+                <p class="subtitle">Клиническая анкета тест</p>
 
-        <p>Одни или более ПР в анамнезе?</p>
-        <label>
-            <input type="radio" name="premature_birth" value="1" required>
-            Да
-        </label>
-        <label>
-            <input type="radio" name="premature_birth" value="0">
-            Нет
-        </label>
+                <h1>Оценка вероятности преждевременных родов</h1>
+
+            </header>
+
+            <form
+                id="survey-form"
+                method="post"
+                action="{{ url_for('submit') }}"
+            >
+
+                <fieldset class="question">
+                    <legend>
+                        1. Пациентка взята на учёт после 12 недель?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="weeks"
+                                value="1"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="weeks"
+                                value="0"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        2. Были преждевременные роды в анамнезе?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="premature_birth"
+                                value="1"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="premature_birth"
+                                value="0"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        3. Пациентка курит?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="smokes"
+                                value="1"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="smokes"
+                                value="0"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        4. Наблюдается адинамия?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="adynamia"
+                                value="1"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="adynamia"
+                                value="0"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        5. Шейка матки при поступлении сглажена?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="smoothness"
+                                value="0"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="smoothness"
+                                value="1"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        6. Уровень лейкоцитов при поступлении в стационар на родоразрешение
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="wb_level"
+                                value="0"
+                                required
+                            >
+                            <span>В пределах нормы</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="wb_level"
+                                value="1"
+                            >
+                            <span>Анормальный</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        7. ИМТ при постановке на учёт составляет
+                        30 или более?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="bmi"
+                                value="1"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="bmi"
+                                value="0"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        8. Были ИППП во время беременности?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="sti"
+                                value="1"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="sti"
+                                value="0"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>
+                        9. Были эпизоды кровянистых выделений
+                        во время настоящей беременности?
+                    </legend>
+
+                    <div class="options">
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="spotting"
+                                value="1"
+                                required
+                            >
+                            <span>Да</span>
+                        </label>
+
+                        <label class="option">
+                            <input
+                                type="radio"
+                                name="spotting"
+                                value="0"
+                            >
+                            <span>Нет</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button
+                    id="submit-button"
+                    class="submit-button"
+                    type="submit"
+                >
+                    Рассчитать результат
+                </button>
+            </form>
+
+            
+        </section>
+    </main>
 
 
-        <p>Пациент курит?</p>
-        <label>
-            <input type="radio" name="smokes" value="1" required>
-            Да
-        </label>
-        <label>
-            <input type="radio" name="smokes" value="0">
-            Нет
-        </label>
+    <dialog
+        id="result-dialog"
+        class="result-dialog"
+    >
+        <div class="dialog-content">
 
-        <p>Адинамия?</p>
-        <label>
-            <input type="radio" name="adynamia" value="1" required>
-            Да
-        </label>
-        <label>
-            <input type="radio" name="adynamia" value="0">
-            Нет
-        </label>
+            <button
+                id="dialog-close-icon"
+                class="dialog-close-icon"
+                type="button"
+                aria-label="Закрыть окно"
+            >
+                ×
+            </button>
 
-        <p>Шейка матки при поступлении сглажена?</p>
-        <label>
-            <input type="radio" name="smoothness" value="1" required>
-            Да
-        </label>
-        <label>
-            <input type="radio" name="smoothness" value="0">
-            Нет
-        </label>
+            <p class="dialog-subtitle">
+                Результат расчёта
+            </p>
 
-        <p>Уровень лейкоцитов в общем анализе крови при поступлении в стационар на родоразрешенение?</p>
-        <label>
-            <input type="radio" name="wb_level" value="0" required>
-            Норма
-        </label>
-        <label>
-            <input type="radio" name="wb_level" value="1">
-            Нет
-        </label>
+            <h2 id="result-title">
+                Расчёт выполнен
+            </h2>
 
-        <p>Норма ИМТ при постановке на учет?</p>
-        <label>
-            <input type="radio" name="bmi" value="0" required>
-            ИМТ менее 30
-        </label>
-        <label>
-            <input type="radio" name="bmi" value="1">
-            ИМТ более 30
-        </label>
+            <p
+                id="result-value"
+                class="result-value"
+            >
+                0 %
+            </p>
 
+            <p
+                id="result-message"
+                class="result-message"
+            >
+                Ответы успешно сохранены.
+            </p>
 
-        <p>ИППП во время беременности?</p>
-        <label>
-            <input type="radio" name="sti" value="1" required>
-            Да
-        </label>
-        <label>
-            <input type="radio" name="sti" value="0">
-            Нет
-        </label>
+            <p class="dialog-disclaimer">
+                Полученное значение не является диагнозом.
+            </p>
 
-        <p>Эпизод кровянистых выделений во время настоящей беременности?</p>
-        <label>
-            <input type="radio" name="spotting" value="1" required>
-            Да
-        </label>
-        <label>
-            <input type="radio" name="spotting" value="0">
-            Нет
-        </label>
+            <div class="dialog-actions">
+                <button
+                    id="reset-button"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Заполнить заново
+                </button>
 
-
-        <br><br>
-
-        <button type="submit">Получить результат</button>
-    </form>
+                <button
+                    id="dialog-close-button"
+                    class="primary-button"
+                    type="button"
+                    autofocus
+                >
+                    Закрыть
+                </button>
+            </div>
+        </div>
+    </dialog>
 </body>
 </html>

@@ -1,0 +1,374 @@
+:root {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: #243148;
+    background: #eef3f8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #dceefe 0,
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #f5f8fc,
+            #eaf1f7
+        );
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.page {
+    width: 100%;
+    padding: 48px 20px;
+}
+
+.survey-card {
+    width: min(760px, 100%);
+    margin: 0 auto;
+    padding: 42px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid rgba(75, 102, 133, 0.12);
+    border-radius: 24px;
+
+    box-shadow:
+        0 24px 60px rgba(41, 67, 96, 0.12);
+}
+
+.survey-header {
+    margin-bottom: 34px;
+}
+
+.subtitle,
+.dialog-subtitle {
+    margin: 0 0 8px;
+
+    color: #3676ad;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0;
+
+    color: #18263a;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.15;
+}
+
+.description {
+    max-width: 620px;
+    margin: 18px 0 0;
+
+    color: #627087;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+#survey-form {
+    display: grid;
+    gap: 18px;
+}
+
+.question {
+    margin: 0;
+    padding: 22px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e1e8f0;
+    border-radius: 16px;
+}
+
+.question legend {
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 0;
+
+    color: #29384d;
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.45;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.option {
+    position: relative;
+    cursor: pointer;
+}
+
+.option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.option span {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+
+    color: #4a5c72;
+    font-weight: 600;
+    text-align: center;
+
+    background: white;
+
+    border: 2px solid #dbe4ed;
+    border-radius: 12px;
+
+    transition:
+        border-color 0.15s ease,
+        background 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease;
+}
+
+.option span:hover {
+    border-color: #8ab6d9;
+    transform: translateY(-1px);
+}
+
+.option input:checked + span {
+    color: #ffffff;
+    background: #347caf;
+    border-color: #347caf;
+}
+
+.option input:focus-visible + span {
+    outline: 3px solid rgba(52, 124, 175, 0.3);
+    outline-offset: 3px;
+}
+
+.submit-button {
+    min-height: 56px;
+    margin-top: 8px;
+    padding: 14px 24px;
+
+    color: white;
+    font-weight: 700;
+
+    background: linear-gradient(
+        135deg,
+        #347caf,
+        #285f91
+    );
+
+    border: 0;
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 24px rgba(40, 95, 145, 0.23);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 16px 30px rgba(40, 95, 145, 0.28);
+}
+
+.submit-button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    transform: none;
+}
+
+.disclaimer {
+    margin: 24px 0 0;
+
+    color: #7a8798;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* Всплывающее окно */
+
+.result-dialog {
+    width: min(480px, calc(100% - 32px));
+    padding: 0;
+
+    color: #243148;
+    background: white;
+
+    border: 0;
+    border-radius: 22px;
+
+    box-shadow:
+        0 30px 80px rgba(24, 38, 58, 0.3);
+}
+
+.result-dialog::backdrop {
+    background: rgba(20, 32, 48, 0.58);
+    backdrop-filter: blur(4px);
+}
+
+.dialog-content {
+    position: relative;
+    padding: 36px;
+    text-align: center;
+}
+
+.dialog-close-icon {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+
+    width: 38px;
+    height: 38px;
+
+    color: #66758a;
+    font-size: 26px;
+    line-height: 1;
+
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.dialog-close-icon:hover {
+    background: #eef3f7;
+}
+
+.result-dialog h2 {
+    margin: 0;
+
+    color: #1d2b3e;
+    font-size: 28px;
+}
+
+.result-value {
+    margin: 24px 0 12px;
+
+    color: #2776ad;
+    font-size: clamp(48px, 12vw, 72px);
+    font-weight: 800;
+    line-height: 1;
+}
+
+.result-message {
+    margin: 0;
+
+    color: #5c6c81;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.dialog-disclaimer {
+    margin: 20px 0 0;
+    padding: 14px;
+
+    color: #69788b;
+    font-size: 13px;
+    line-height: 1.5;
+
+    background: #f5f8fb;
+    border-radius: 12px;
+}
+
+.dialog-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.primary-button,
+.secondary-button {
+    min-height: 46px;
+    padding: 10px 16px;
+
+    font-weight: 700;
+    border-radius: 11px;
+
+    cursor: pointer;
+}
+
+.primary-button {
+    color: white;
+    background: #347caf;
+    border: 2px solid #347caf;
+}
+
+.secondary-button {
+    color: #347caf;
+    background: white;
+    border: 2px solid #cbddea;
+}
+
+
+/* Вид окна при ошибке */
+
+.result-dialog.error .dialog-subtitle,
+.result-dialog.error .result-value {
+    color: #b13b3b;
+}
+
+
+/* Адаптация под телефон */
+
+@media (max-width: 600px) {
+    .page {
+        padding: 20px 12px;
+    }
+
+    .survey-card {
+        padding: 24px 18px;
+        border-radius: 18px;
+    }
+
+    .question {
+        padding: 18px 14px;
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+
+    .dialog-content {
+        padding: 32px 20px 22px;
+    }
+
+    .dialog-actions {
+        grid-template-columns: 1fr;
+    }
+}

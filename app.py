@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask,jsonify, request, render_template
 
 from model import LogisticModel
 from database import init_database, save_response
@@ -6,6 +6,37 @@ from database import init_database, save_response
 app = Flask(__name__)
 
 init_database()
+
+BINARY_FIELDS = (
+    "weeks",
+    "premature_birth",
+    "smokes",
+    "adynamia",
+    "smoothness",
+    "wb_level",
+    "bmi",
+    "sti",
+    "spotting",
+)
+
+def read_answers():
+    """
+    Transform answers in forms to binary data
+    """
+
+    answers = {}
+
+    for field_name in BINARY_FIELDS:
+        value = request.form.get(field_name)
+
+        if value not in {"0", "1"}:
+            raise ValueError(
+                f"Поле {field_name} отсутствует или содержит неверное значение"
+            )
+
+        answers[field_name] = int(value)
+
+    return answers
 
 @app.route("/")
 def index():
@@ -15,17 +46,7 @@ def index():
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
-        answers = {
-            "weeks": int(request.form["weeks"]),
-            "premature_birth": int(request.form["premature_birth"]),
-            "smokes": int(request.form["smokes"]),
-            "adynamia": int(request.form["adynamia"]),
-            "smoothness": int(request.form["smoothness"]),
-            "wb_level": int(request.form["wb_level"]),
-            "bmi": int(request.form["bmi"]),
-            "sti": int(request.form["sti"]),
-            "spotting": int(request.form["spotting"])
-        }
+        answers = read_answers()
 
         model = LogisticModel(**answers)
         result = model.calculate()
@@ -34,22 +55,29 @@ def submit():
             answers=answers,
             probability=result
         )
+        
+    except ValueError as error:
+        return jsonify(
+            success=False,
+            message=str(error)
+        ), 400
 
-    except (KeyError, ValueError):
-        return "Ошибка: проверьте правильность заполнения формы", 400
-    
-    except Exception as error:
-        print("Ошибка сохранения:", error)
-        return "Не удалось сохранить результаты", 500
+    except Exception:
 
+        app.logger.exception("Ошибка во время обработки анкеты")
 
-    result = model.calculate()
+        return jsonify(
+            success=False,
+            message="Не удалось выполнить расчёт или сохранить результат"
+        ), 500
 
-    return f"""
-        <h1>Результат</h1>
-        <p>Вероятность: {result:.2%}</p>
-        <a href="/">Вернуться к форме</a>
-    """
+    return jsonify(
+        success=True,
+        probability=result,
+        percentage=round(result * 100, 2),
+        response_id=response_id
+    )
+
 
 
 if __name__ == "__main__":
