@@ -1,11 +1,11 @@
 from flask import Flask,jsonify, request, render_template
 
 from model import LogisticModel
-from database import init_database, save_response
+# from database import init_database, save_response
 
 app = Flask(__name__)
 
-init_database()
+# init_database()
 
 BINARY_FIELDS = (
     "weeks",
@@ -51,10 +51,10 @@ def submit():
         model = LogisticModel(**answers)
         result = model.calculate()
 
-        response_id = save_response(
-            answers=answers,
-            probability=result
-        )
+        # response_id = save_response(
+        #     answers=answers,
+        #     probability=result
+        # )
         
     except ValueError as error:
         return jsonify(
