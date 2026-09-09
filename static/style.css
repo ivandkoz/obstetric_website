@@ -55,6 +55,10 @@ input {
         0 24px 60px rgba(41, 67, 96, 0.12);
 }
 
+.power {
+    font-size: 0.5em;
+}
+
 .survey-header {
     margin-bottom: 34px;
 }

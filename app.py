@@ -75,7 +75,7 @@ def submit():
         success=True,
         probability=result,
         percentage=round(result * 100, 2),
-        response_id=response_id
+        # response_id=response_id
     )
 
 
