@@ -25,10 +25,9 @@
         <h1>Выберите анкету</h1>
         <p>Выберите подходящую для вас анкету</p>
         {% for questionnaire, link in questionnaires_links.items() %}
-            <section class="questionnaire-card">
-                <h2>{{questionnaire}}</h2>
-                <a class="questionnaire-link" href="{{ url_for(link) }}">Перейти к анкете</a>
-            </section>
+            <a class="questionnaire-card" href="{{ url_for(link) }}">
+                <h2>{{ questionnaire }}</h2>
+            </a>
         {% endfor %}
     </main>
 </body>
