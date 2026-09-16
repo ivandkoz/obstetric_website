@@ -40,9 +40,25 @@ def read_answers():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    questionnaires_links = {
+    "Оценка вероятности спонтанных преждевременных родов с выполнением расчета в I и II триместрах беременности": 
+        "premature_birth_questionnaire",
+    "Анкета 2":
+        "questionnaire_2"
+}
+    print(questionnaires_links)
+    return render_template("index.html", questionnaires_links=questionnaires_links)
+
+@app.route("/questionnaires/premature-labor-questionnaire")
+def premature_birth_questionnaire():
+    return render_template("premature_labor_questionnaire.html")
 
 
+@app.route("/questionnaires/premature-labor-questionnaire2")
+def questionnaire_2():
+    return render_template("premature_labor_questionnaire.html")
+    
+    
 @app.route("/submit", methods=["POST"])
 def submit():
     try:

@@ -21,19 +21,15 @@
 </head>
 
 <body>
-    <main>
+    <main class="container">
         <h1>Выберите анкету</h1>
         <p>Выберите подходящую для вас анкету</p>
-        <section>
-            <h2>Оценка вероятности спонтанных преждевременных родов с выполнением расчета в I и II триместрах беременности</h2>
-            <a href="/questionnaires/premature-birth">Перейти к анкете</a>
-        </section>
-        <section>
-            <h2>Анкета 2</h2>
-        </section>
-        <section>
-            <h2>Анкета 3</h2>
-        </section>
+        {% for questionnaire, link in questionnaires_links.items() %}
+            <section class="questionnaire-card">
+                <h2>{{questionnaire}}</h2>
+                <a class="questionnaire-link" href="{{ url_for(link) }}">Перейти к анкете</a>
+            </section>
+        {% endfor %}
     </main>
 </body>
 </html>
