@@ -74,8 +74,6 @@ function showSuccessResult(data) {
     resultValue.textContent =
         percentage.toFixed(2).replace(".", ",") + " %";
 
-    resultMessage.textContent =
-        `Ответы сохранены. Номер записи: ${data.response_id}.`;
 
     resultDialog.showModal();
 }
