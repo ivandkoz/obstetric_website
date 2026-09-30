@@ -22,8 +22,7 @@
 
 <body>
     <main class="container">
-        <h1>Выберите анкету</h1>
-        <p>Выберите подходящую для вас анкету</p>
+        <h1>Выберите программу</h1>
         {% for questionnaire, link in questionnaires_links.items() %}
             <a class="questionnaire-card" href="{{ url_for(link) }}">
                 <h2>{{ questionnaire }}</h2>
