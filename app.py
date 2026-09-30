@@ -53,8 +53,8 @@ def index():
     questionnaires_links = {
     "Программа прогнозирования спонтанных преждевременных родов в I, II, и III триместрах беременности": 
         "premature_birth_questionnaire",
-    "Анкета 2":
-        "questionnaire_2"
+    "Программа прогнозирования спонтанных экстремально ранних преждевременных родов с выполнением расчета в I и II триместрах беременности":
+        "extreme_premature_birth_questionnaire"
 }
     print(questionnaires_links)
     return render_template("index.html", questionnaires_links=questionnaires_links)
@@ -64,9 +64,9 @@ def premature_birth_questionnaire():
     return render_template("premature_labor_questionnaire.html")
 
 
-@app.route("/questionnaires/premature-labor-questionnaire2")
-def questionnaire_2():
-    return render_template("premature_labor_questionnaire2.html")
+@app.route("/questionnaires/extreme_premature_birth_questionnaire")
+def extreme_premature_birth_questionnaire():
+    return render_template("extreme_premature_birth_questionnaire.html")
     
     
 @app.route("/submit", methods=["POST"])
