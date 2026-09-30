@@ -1,32 +1,42 @@
-from flask import Flask,jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template
 
-from model import LogisticModel
-# from database import init_database, save_response
+from model import LogisticModel, LogisticModel2
 
 app = Flask(__name__)
 
-# init_database()
 
-BINARY_FIELDS = (
-    "weeks",
-    "premature_birth",
-    "smokes",
-    "adynamia",
-    "smoothness",
-    "wb_level",
-    "bmi",
-    "sti",
-    "spotting",
-)
+MODEL_FIELDS = {
+    "model1": (
+        "weeks",
+        "premature_birth",
+        "smokes",
+        "adynamia",
+        "smoothness",
+        "wb_level",
+        "bmi",
+        "sti",
+        "spotting",
+    ),
 
-def read_answers():
-    """
-    Transform answers in forms to binary data
-    """
+    "model2": (
+        "wb_level",
+        "wb_avg_ep_avg_ratio",
+        "abortion",
+        "polycystic_ovary",
+        "wb_count",
+    ),
+}
 
+
+MODEL_CLASSES = {
+    "model1": LogisticModel,
+    "model2": LogisticModel2,
+}
+
+def read_answers(fields):
     answers = {}
 
-    for field_name in BINARY_FIELDS:
+    for field_name in fields:
         value = request.form.get(field_name)
 
         if value not in {"0", "1"}:
@@ -56,22 +66,25 @@ def premature_birth_questionnaire():
 
 @app.route("/questionnaires/premature-labor-questionnaire2")
 def questionnaire_2():
-    return render_template("premature_labor_questionnaire.html")
+    return render_template("premature_labor_questionnaire2.html")
     
     
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
-        answers = read_answers()
+        model_name = request.form.get("model")
 
-        model = LogisticModel(**answers)
+        if model_name not in MODEL_CLASSES:
+            raise ValueError("Неизвестная модель")
+
+        fields = MODEL_FIELDS[model_name]
+        answers = read_answers(fields)
+
+        model_class = MODEL_CLASSES[model_name]
+        model = model_class(**answers)
+
         result = model.calculate()
 
-        # response_id = save_response(
-        #     answers=answers,
-        #     probability=result
-        # )
-        
     except ValueError as error:
         return jsonify(
             success=False,
@@ -79,21 +92,18 @@ def submit():
         ), 400
 
     except Exception:
-
         app.logger.exception("Ошибка во время обработки анкеты")
 
         return jsonify(
             success=False,
-            message="Не удалось выполнить расчёт или сохранить результат"
+            message="Не удалось выполнить расчёт"
         ), 500
 
     return jsonify(
         success=True,
         probability=result,
-        percentage=round(result * 100, 2),
-        # response_id=response_id
+        percentage=round(result * 100, 2)
     )
-
 
 
 if __name__ == "__main__":

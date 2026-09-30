@@ -43,4 +43,34 @@ class LogisticModel:
         return sigmoid
     
 
+class LogisticModel2:
+    def __init__(
+        self,
+        wb_level,
+        wb_avg_ep_avg_ratio,
+        abortion,
+        polycystic_ovary,
+        wb_count,
+    ):
+        self.wb_level = wb_level
+        self.wb_avg_ep_avg_ratio = wb_avg_ep_avg_ratio
+        self.abortion = abortion
+        self.polycystic_ovary = polycystic_ovary
+        self.wb_count = wb_count
+        
+    def calculate(self):
+        z = (
+            -3.7268 +
+            + 0.7541 * self.wb_level
+            + 1.0288 * self.wb_avg_ep_avg_ratio
+            + 1.3084 * self.abortion
+            + 0.8088 * self.polycystic_ovary
+            + 0.4110 * self.wb_count
+        )
+
+        sigmoid = 1 / (1 + math.exp(-z))
+
+        return sigmoid
+    
+
         
